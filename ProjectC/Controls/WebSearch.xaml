@@ -1,0 +1,94 @@
+﻿<Page
+    x:Class="ProjectC.Controls.WebSearch"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ProjectC.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="700"
+    d:DesignWidth="400">
+
+    <UserControl.Resources>
+        <Style x:Key="SearchTextBoxStyle" TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Segoe Script"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="12,0,12,0"/>
+            <Setter Property="Margin" Value="0,0,40,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid Background="Transparent">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                    <VisualState x:Name="Disabled"/>
+                                    <VisualState x:Name="ReadOnly"/>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused"/>
+                                    <VisualState x:Name="Unfocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="allStatesContent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="0">
+                                <ContentControl x:Name="ContentElement" BorderThickness="0" HorizontalContentAlignment="Stretch" Margin="0" Padding="{TemplateBinding Padding}" VerticalContentAlignment="Stretch">
+                                    <TextBox Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FontStyle="{TemplateBinding FontStyle}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" TextAlignment="{TemplateBinding TextAlignment}" TextWrapping="{TemplateBinding TextWrapping}" Text="{TemplateBinding Text}"/>
+                                </ContentControl>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <GridView x:Name="PhotoGrid"
+                  Grid.Row="0"
+                  HorizontalAlignment="Center"
+                  Margin="16,12,16,0" 
+                  CanDragItems="True"
+                  DragItemsStarting="PhotoGrid_DragItemsStarting">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Image Width="140" 
+                           Height="140" 
+                           Source="{Binding SquareThumbnailUrl}" />
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+
+        <Grid x:Name="SearchGrid" Grid.Row="1"
+              Margin="32,12,32,12" 
+              BorderThickness="0,0,0,2" 
+              BorderBrush="Black">
+            <TextBlock x:Name="SearchText" FontFamily="Segoe Script"
+                     FontSize="24"
+                     Foreground="Gray"
+                     Margin="0,0,40,0"
+                     Padding="12,0,12,0"
+                     Text="Search..."/>
+            <TextBox x:Name="SearchBox" 
+                     Text=""
+                     Style="{StaticResource SearchTextBoxStyle}"
+                     GotFocus="SearchBox_GotFocus" LostFocus="SearchBox_LostFocus"/>
+            <Button x:Name="SearchButton" 
+                    HorizontalAlignment="Right"
+                    Padding="8" 
+                    Background="#00000000" 
+                    BorderBrush="{x:Null}"
+                    Click="SearchButton_Click">
+                <SymbolIcon Symbol="Find" />
+            </Button>
+        </Grid>
+    </Grid>
+</Page>
